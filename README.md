@@ -9,10 +9,8 @@ on your command line
 
 Afterwards you can ask the webservice for any public amazon wish list url (It can handle big wish lists with paginantion as well).
 
-e.g.
-http://localhost:8585/wishlist?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_list_o_2?
-
-
+curl example:
+`curl -H "Content-Type: application/json" -X GET http://localhost:8585/ist_o_2t?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_li`
 
 you will get a result including:
 * name of the wish list
