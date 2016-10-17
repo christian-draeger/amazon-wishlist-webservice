@@ -1,5 +1,6 @@
 package amazonFetcher;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,12 @@ public class Builder {
 
     private Wishlist getAmazonWishListJsonAsString(final String amazonWishlistUrl) {
 
-        Document wl = new WishListFetcher().getFetchedAmazonWishList(amazonWishlistUrl);
+        Document wl = null;
+        try {
+            wl = new WishListFetcher().getFetchedAmazonWishList(amazonWishlistUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         String paginationUri = wl.select(".a-last>a").attr("href");
         String paginationUrl = "http://www.amazon." + getAmazonTld(amazonWishlistUrl) + wl.select(".a-last>a").attr("href");

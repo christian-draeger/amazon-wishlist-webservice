@@ -1,8 +1,11 @@
 package amazonFetcher;
 
+import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import config.ConfigReader;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -11,18 +14,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WishListFetcher {
 
-    /*@Autowired
-    private Environment env;*/
+//    private String userAgent = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
+//    private String referrer = "http://www.google.com";
+    ConfigReader config = new ConfigReader();
+    private String userAgent = config.getProperty("config.useragent");
+    private String referrer = config.getProperty("config.referrer");
 
-    private String userAgent = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-    private String referrer = "http://www.google.com";
+
+    public WishListFetcher() throws IOException {
+    }
 
     public Document getFetchedAmazonWishList(final String amazonWishlistUrl) {
 
         Document wl = null;
 
         log.info("\n\tuserAgent: {}\n\treferrer: {}", userAgent, referrer);
-        // log.info("\n\tuserAgent: {}\n\treferrer: {}", env.getRequiredProperty("config.useragent"), env.getRequiredProperty("config.referrer"));
 
         if (isValideAmazonWishListUrl(amazonWishlistUrl)){
             try {
