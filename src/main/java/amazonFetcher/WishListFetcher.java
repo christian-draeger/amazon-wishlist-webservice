@@ -14,8 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WishListFetcher {
 
-//    private String userAgent = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
-//    private String referrer = "http://www.google.com";
     ConfigReader config = new ConfigReader();
     private String userAgent = config.getProperty("config.useragent");
     private String referrer = config.getProperty("config.referrer");
@@ -33,8 +31,6 @@ public class WishListFetcher {
         if (isValideAmazonWishListUrl(amazonWishlistUrl)){
             try {
                 return Jsoup.connect(amazonWishlistUrl)
-                    /*.userAgent(env.getRequiredProperty("config.useragent"))
-                    .referrer(env.getRequiredProperty("config.referrer"))*/
                         .userAgent(userAgent)
                         .referrer(referrer)
                         .get();
