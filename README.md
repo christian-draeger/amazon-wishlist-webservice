@@ -16,6 +16,9 @@ on your command line
 
 Afterwards you can ask the webservice for any public Amazon Wish List URL 
 (It can handle big wish lists with paginantion as well).
+You just have to call the endpoint with your Amazon Wish List URL as url parameter.
+Depending on the tld of your Amazon link you will get country specific data.
+> e.g. for an .de amazon link you will get € as currency, for .com $ etc.
 
 curl example:
 `curl -H "Content-Type: application/json" -X GET http://localhost:8585/ist_o_2t?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_li`
@@ -32,6 +35,9 @@ you will get a result including:
   * item url
   * item picture url
   * offered by (if available)
+  
+Example Response
+==========
 
 ```
 {
