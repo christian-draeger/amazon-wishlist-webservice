@@ -4,13 +4,13 @@ This is a little API to retrieve Amazon Wish List data. There is no official API
 **This webservice will fetch data from public amazon wish lists and responds in json format**
 >e.g. [this public amazon wish list]
 
-amazon-wishlist-webservice uses [jSoup](https://jsoup.org/) (server-side CSS3 selector driven DOM API) to scrape Amazon's Wish List page and [spring-boot](https://projects.spring.io/spring-boot/) to have to have a standalone webservice instance that exports the response as JSON.
+amazon-wishlist-webservice is written in Java and uses [jSoup](https://jsoup.org/) (server-side CSS3 selector driven DOM API) to scrape Amazon's Wish List page and [spring-boot](https://projects.spring.io/spring-boot/) to have a standalone webservice instance that exports the response as JSON.
 
 if you want to put some public or shared Amazon Wish List on your web page for instance, this project will fit your needs perfectly.
 
 How to use
 ==========
-to start the application navigate to the appropriate  path and call
+to start the application navigate to the appropriate path and call
 `mvn spring-boot:run`
 on your command line 
 
