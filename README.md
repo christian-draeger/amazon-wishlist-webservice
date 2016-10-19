@@ -1,3 +1,5 @@
+[![N|Solid](https://travis-ci.org/christian-draeger/amazon-wishlist-webservice.svg?branch=master)](https://travis-ci.org/christian-draeger/amazon-wishlist-webservice)
+
 # Amazon wish list api
 This is a little API to retrieve Amazon Wish List data. There is no official API, as Amazon shut it down a couple years ago.
 
