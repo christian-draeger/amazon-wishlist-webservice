@@ -95,3 +95,10 @@ Support
 =======
 
 https://github.com/christian-draeger/amazon-wishlist-webservice/issues
+
+Pages
+=======
+
+https://christian-draeger.github.io/amazon-wishlist-webservice/
+
+
