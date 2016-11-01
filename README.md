@@ -22,8 +22,11 @@ You just have to call the endpoint with your Amazon Wish List URL as url paramet
 Depending on the tld of your Amazon link you will get country specific data.
 > e.g. for an .de amazon link you will get € as currency, for .com $ etc.
 
+if you want to play around with the API, it's hosted on heroku
+`https://amazon-wishlist-webservice.herokuapp.com/wishlist?url=${yourWishListUrl}`
+
 curl example:
-`curl -H "Content-Type: application/json" -X GET http://localhost:8585/ist_o_2t?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_li`
+`curl -H "Content-Type: application/json" -X GET https://amazon-wishlist-webservice.herokuapp.com/wishlist?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_list_o_2`
 
 you will get a result including:
 * name of the wish list
