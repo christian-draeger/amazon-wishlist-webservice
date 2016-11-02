@@ -41,7 +41,7 @@ public class Builder {
         Elements items = wl.select("h5 a");
         Elements prices = wl.select("[id^=itemPrice_]");
         Elements asins = wl.select("[data-item-prime-info]");
-        Elements pictures = wl.select("[id^=itemImage]");
+        Elements pictures = wl.select("[id^=itemImage] a img");
         Elements offeredBy = wl.select(".itemAvailOfferedBy");
 
         if (items.size() == 0){
