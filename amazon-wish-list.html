@@ -60,6 +60,7 @@
                 height:198px;
                 margin-left: 34%;
                 margin-top: 10%;
+                display: none;
             }
             .helper {
                 display: inline-block;
@@ -71,11 +72,35 @@
                 cursor: pointer;
                 color: black;
             }
+            input[type=text] {
+                width: 80%;
+                padding: 10px 20px;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 10px 0 0 10px;
+                box-sizing: border-box;
+                font-size: x-large;
+            }
+            input[type=submit] {
+                width: 16%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 0px;
+                border: none;
+                border-radius: 0 10px 10px 0;
+                cursor: pointer;
+                font-size: x-large;
+            }
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
         </style>
     </head>
     <body>
     <!-- Swiper -->
         <div class="swiper-container">
+            <input type="text" id="amazon-url" value="https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ" />
+            <input type="submit" value="Submit" onclick="submit();">
 
             <h2></h2>
             <div class="swiper-wrapper">
@@ -91,38 +116,46 @@
         <script>
 
             var wsUrl = "https://amazon-wishlist-webservice.herokuapp.com/wishlist?url=";
-            var amzUrl = "https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ";
 
-            $.getJSON(wsUrl + amzUrl, function(wl) {
-                var item;
-                $('.swiper-container h2').html('<a href="' + wl.url + '" target="_blank">' + wl.name + '</a>');
-                for(var i = 0; i< wl.items.length; i++){
-                    var price = wl.items[i].price;
-                    if (price == undefined){
-                        price = "n/a";
+            function submit(){
+                var amazonUrl = document.getElementById('amazon-url');
+                $('#spinner').show();
+
+                console.log(amazonUrl.value);
+
+                $.getJSON(wsUrl + amazonUrl.value, function(wl) {
+                    var item;
+                    $('.swiper-container h2').html('<a href="' + wl.url + '" target="_blank">' + wl.name + '</a>');
+                    for(var i = 0; i< wl.items.length; i++){
+                        var price = wl.items[i].price;
+                        if (price == undefined){
+                            price = "n/a";
+                        }
+                        item = swiperItem(wl.items[i].pictureUrl, price, wl.items[i].title, wl.items[i].itemUrl);
+                        $('.swiper-wrapper').append(item);
                     }
-                    item = swiperItem(wl.items[i].pictureUrl, price, wl.items[i].title, wl.items[i].itemUrl);
-                    $('.swiper-wrapper').append(item);
-                }
-            })
-            .done(function() {
-                $('#spinner').hide();
-                var swiper = new Swiper('.swiper-container', {
-                    pagination: '.swiper-pagination',
-                    effect: 'coverflow',
-                    grabCursor: true,
-                    centeredSlides: true,
-                    slidesPerView: 'auto',
-                    a11y: true,
-                    coverflow: {
-                        rotate: 50,
-                        stretch: 0,
-                        depth: 100,
-                        modifier: 1,
-                        slideShadows : true
-                    }
+                })
+                .done(function() {
+                    $('#spinner').hide();
+                    var swiper = new Swiper('.swiper-container', {
+                        pagination: '.swiper-pagination',
+                        effect: 'coverflow',
+                        grabCursor: true,
+                        centeredSlides: true,
+                        slidesPerView: 'auto',
+                        a11y: true,
+                        coverflow: {
+                            rotate: 50,
+                            stretch: 0,
+                            depth: 100,
+                            modifier: 1,
+                            slideShadows : true
+                        }
+                    });
                 });
-            });
+            }
+
+
 
             function swiperItem(imageUrl, price, title, url){
                 return  '<div class="swiper-slide">' +
