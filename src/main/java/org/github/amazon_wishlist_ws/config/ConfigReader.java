@@ -1,4 +1,4 @@
-package config;
+package org.github.amazon_wishlist_ws.config;
 
 import static org.springframework.core.io.support.PropertiesLoaderUtils.loadProperties;
 

@@ -5,6 +5,9 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.github.amazon_wishlist_ws.fetcher.DomParser;
+import org.github.amazon_wishlist_ws.fetcher.WishListFetcher;
+import org.github.amazon_wishlist_ws.fetcher.Wishlist;
 import org.jsoup.nodes.Document;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
