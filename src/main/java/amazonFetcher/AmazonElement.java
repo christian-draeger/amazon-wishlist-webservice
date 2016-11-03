@@ -14,7 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class AmazonElement {
-
-    private String title, price, asin, id, itemUrl, pictureUrl, offeredBy;
+    private String title;
+    private String price;
+    private String asin;
+    private String id;
+    private String itemUrl;
+    private String pictureUrl;
+    private String offeredBy;
     private int isbn;
 }

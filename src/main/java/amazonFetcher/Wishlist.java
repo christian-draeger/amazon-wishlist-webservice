@@ -2,17 +2,16 @@ package amazonFetcher;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 
 /**
  * Created by christian.draeger on 26.04.16.
  */
-@Data
-@AllArgsConstructor
+@Value
+@NonFinal
 public class Wishlist {
-
     List<AmazonElement> items;
-    String name, url;
-
+    String name;
+    String url;
 }

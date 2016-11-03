@@ -9,3 +9,5 @@ target/
 *.iws
 .idea/
 ?/
+test-output/
+
