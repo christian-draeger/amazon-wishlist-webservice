@@ -6,12 +6,14 @@ import static org.hamcrest.Matchers.hasSize;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import com.jayway.restassured.RestAssured;
 
-@SpringBootTest
-public class ControllerIT {
+@SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
+public class ControllerIT extends AbstractTestNGSpringContextTests {
     @Value("${local.server.port}")
     int port;
 
