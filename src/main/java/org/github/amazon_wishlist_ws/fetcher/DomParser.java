@@ -1,4 +1,4 @@
-package amazonFetcher;
+package org.github.amazon_wishlist_ws.fetcher;
 
 import java.util.ArrayList;
 import java.util.List;

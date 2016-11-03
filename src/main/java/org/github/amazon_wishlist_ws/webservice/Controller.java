@@ -1,8 +1,10 @@
-package webservice;
+package org.github.amazon_wishlist_ws.webservice;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.github.amazon_wishlist_ws.fetcher.DomParser;
+import org.github.amazon_wishlist_ws.fetcher.Wishlist;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import amazonFetcher.DomParser;
-import amazonFetcher.Wishlist;
 import lombok.extern.slf4j.Slf4j;
 
 /**

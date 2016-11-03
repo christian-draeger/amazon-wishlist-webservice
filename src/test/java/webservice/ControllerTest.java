@@ -5,12 +5,13 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.github.amazon_wishlist_ws.fetcher.DomParser;
+import org.github.amazon_wishlist_ws.fetcher.Wishlist;
+import org.github.amazon_wishlist_ws.webservice.Controller;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.Test;
 
-import amazonFetcher.DomParser;
-import amazonFetcher.Wishlist;
 import mockito.MockitoTest;
 
 public class ControllerTest extends MockitoTest {

@@ -1,14 +1,14 @@
-package amazonFetcher;
+package org.github.amazon_wishlist_ws.fetcher;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.github.amazon_wishlist_ws.config.ConfigReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
-import config.ConfigReader;
 import lombok.extern.slf4j.Slf4j;
 
 /**
