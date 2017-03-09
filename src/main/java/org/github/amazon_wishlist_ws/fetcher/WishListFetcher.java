@@ -23,8 +23,6 @@ public class WishListFetcher {
     String referrer;
 
     public Document getFetchedAmazonWishList(String amazonWishListUrl) {
-        log.info(userAgent);
-        log.info(referrer);
         validateAmazonWishListUrl(amazonWishListUrl);
         try {
             return Jsoup.connect(amazonWishListUrl)
