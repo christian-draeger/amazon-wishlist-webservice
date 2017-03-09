@@ -2,11 +2,9 @@ package org.github.amazon_wishlist_ws.fetcher;
 
 import java.io.IOException;
 
-import javax.inject.Inject;
-
-import org.github.amazon_wishlist_ws.config.ConfigReader;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +15,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class WishListFetcher {
-    @Inject
-    private ConfigReader config;
+
+    @Value("${config.useragent}")
+    String userAgent;
+
+    @Value("${config.referrer}")
+    String referrer;
 
     public Document getFetchedAmazonWishList(String amazonWishListUrl) {
+        log.info(userAgent);
+        log.info(referrer);
         validateAmazonWishListUrl(amazonWishListUrl);
         try {
             return Jsoup.connect(amazonWishListUrl)
-                    .userAgent(config.getProperty("config.useragent"))
-                    .referrer(config.getProperty("config.referrer"))
+                    .userAgent(userAgent)
+                    .referrer(referrer)
                     .get();
         } catch (IOException e) {
             log.warn("Error querying Amazon!", e);

@@ -107,8 +107,8 @@
                 <img id="spinner" src="balls.gif">
             </div>
 
-            <!-- Add Pagination -->
             <div class="swiper-pagination"></div>
+
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -121,7 +121,7 @@
                 var amazonUrl = document.getElementById('amazon-url');
                 $('#spinner').show();
 
-                console.log(amazonUrl.value);
+                $('.swiper-slide').remove();
 
                 $.getJSON(wsUrl + amazonUrl.value, function(wl) {
                     var item;
