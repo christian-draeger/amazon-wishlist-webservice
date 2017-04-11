@@ -26,6 +26,8 @@ if you want to play around with the API, it's hosted on heroku
 
 `https://amazon-wishlist-webservice.herokuapp.com/wishlist?url=${yourWishListUrl}`
 
+you can find a swagger-ui documentation [here](https://amazon-wishlist-webservice.herokuapp.com/swagger-ui.html#!/amazon-wish-list-controller/get_wish_list_by_urlUsingGET)
+
 curl example:
 
 `curl -H "Content-Type: application/json" -X GET https://amazon-wishlist-webservice.herokuapp.com/wishlist?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_list_o_2`
