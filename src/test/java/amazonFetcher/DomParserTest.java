@@ -28,7 +28,7 @@ public class DomParserTest extends MockitoTest {
         when(wishListFetcher.getFetchedAmazonWishList("http://amazon.de/wishlist")).thenReturn(document);
 
         // when
-        Wishlist wishList = domParser.getWishList("http://amazon.de/wishlist");
+        Wishlist wishList = domParser.getWishListByUrl("http://amazon.de/wishlist");
 
         // then
         assertThat(wishList, notNullValue());

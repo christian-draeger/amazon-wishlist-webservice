@@ -10,18 +10,38 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Service
 public class DomParser {
+
     @Inject
     private WishListFetcher wishListFetcher;
 
-    public Wishlist getWishList(String amazonWishlistUrl) {
+    @JsonProperty(required = true)
+    @ApiModelProperty(notes = "get the amazon wish list by url", required = true)
+    public Wishlist getWishListByUrl(String amazonWishlistUrl) {
         List<AmazonElement> amazonElementList = new ArrayList<>();
         Document wl = wishListFetcher.getFetchedAmazonWishList(amazonWishlistUrl);
 
+        return getWishlist(amazonWishlistUrl, amazonElementList, wl);
+    }
+
+    @JsonProperty(required = true)
+    @ApiModelProperty(notes = "get the amazon wish list by tld and id", required = true)
+    public Wishlist getWishListByID(String tld, String id) {
+        List<AmazonElement> amazonElementList = new ArrayList<>();
+        String amazonWishlistUrl = "https://www.amazon." + tld + "/gp/registry/wishlist/" + id;
+        Document wl = wishListFetcher.getFetchedAmazonWishList(amazonWishlistUrl);
+
+        return getWishlist(amazonWishlistUrl, amazonElementList, wl);
+    }
+
+    private Wishlist getWishlist(String amazonWishlistUrl, List<AmazonElement> amazonElementList, Document wl) {
         String paginationUri = wl.select(".a-last>a").attr("href");
         String paginationUrl = "http://www.amazon." + getAmazonTld(amazonWishlistUrl) + paginationUri;
         Elements listName = wl.select("#wl-list-info h1");
@@ -64,7 +84,7 @@ public class DomParser {
         }
 
         if (!paginationUri.isEmpty()) {
-            getWishList(paginationUrl);
+            getWishListByUrl(paginationUrl);
         }
 
         return new Wishlist(amazonElementList, listName.get(0).text(), amazonWishlistUrl);
