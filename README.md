@@ -12,6 +12,8 @@ if you want to put some public or shared Amazon Wish List on your web page for i
 
 How to use
 ==========
+Required : Java 1.8 or higher installed
+
 to start the application navigate to the appropriate path and call
 `mvn spring-boot:run`
 on your command line 
@@ -19,6 +21,9 @@ on your command line
 Afterwards you can ask the webservice for any public Amazon Wish List URL 
 (It can handle big wish lists with paginantion as well).
 You just have to call the endpoint with your Amazon Wish List URL as url parameter.
+
+To get your wishlist in json format you can open http://localhost:8585/wishlist?url=https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_list_o_2`
+
 Depending on the tld of your Amazon link you will get country specific data.
 > e.g. for an .de amazon link you will get € as currency, for .com $ etc.
 
