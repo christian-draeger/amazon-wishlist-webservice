@@ -11,7 +11,7 @@ import lombok.experimental.NonFinal;
 @Value
 @NonFinal
 public class Wishlist {
-    List<AmazonElement> items;
     String name;
     String url;
+    List<AmazonElement> items;
 }

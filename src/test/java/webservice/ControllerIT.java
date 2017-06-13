@@ -24,7 +24,7 @@ public class ControllerIT extends AbstractTestNGSpringContextTests {
                 .baseUri("http://localhost").port(port)
                 .when()
                 .param("url", "https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ/ref=cm_wl_list_o_2")
-                .get("wishlist")
+                .get("wishlistByUrl")
                 .then()
                 .statusCode(200)
                 .body("url", any(String.class))

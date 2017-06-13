@@ -21,5 +21,5 @@ public class AmazonElement {
     private String itemUrl;
     private String pictureUrl;
     private String offeredBy;
-    private int isbn;
+    private String isbn;
 }

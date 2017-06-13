@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -19,15 +20,27 @@ import io.swagger.annotations.ApiModelProperty;
 @Service
 public class DomParser {
 
-    @Inject
-    private WishListFetcher wishListFetcher;
+    private static final String WISH_LIST_HEADLINE_SELECTOR = "#wl-list-info h1";
+    private static final String PAGINATION_SELECTOR = ".a-last>a";
+    private static final String ITEMS = "h5 a";
+    private static final String PRICES = "[id^=itemPrice_]";
+    private static final String ASINS = "[data-item-prime-info]";
+    private static final String PICTURES = "[id^=itemImage] a img";
+    private static final String OFFERED_BY = ".itemAvailOfferedBy";
 
-    @JsonProperty(required = true)
+    private final WishListFetcher wishListFetcher;
+    private List<AmazonElement> amazonElementList = new ArrayList<>();
+
+    @Inject
+    public DomParser(WishListFetcher wishListFetcher) {
+        this.wishListFetcher = wishListFetcher;
+    }
+
+    @JsonProperty(required = true, defaultValue = "https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ")
     @ApiModelProperty(notes = "get the amazon wish list by url", required = true)
     public Wishlist getWishListByUrl(String amazonWishlistUrl) {
-        List<AmazonElement> amazonElementList = new ArrayList<>();
-        Document wl = wishListFetcher.getFetchedAmazonWishList(amazonWishlistUrl);
 
+        Document wl = wishListFetcher.getFetchedAmazonWishList(amazonWishlistUrl);
         return getWishlist(amazonWishlistUrl, amazonElementList, wl);
     }
 
@@ -42,15 +55,15 @@ public class DomParser {
     }
 
     private Wishlist getWishlist(String amazonWishlistUrl, List<AmazonElement> amazonElementList, Document wl) {
-        String paginationUri = wl.select(".a-last>a").attr("href");
-        String paginationUrl = "http://www.amazon." + getAmazonTld(amazonWishlistUrl) + paginationUri;
-        Elements listName = wl.select("#wl-list-info h1");
 
-        Elements items = wl.select("h5 a");
-        Elements prices = wl.select("[id^=itemPrice_]");
-        Elements asins = wl.select("[data-item-prime-info]");
-        Elements pictures = wl.select("[id^=itemImage] a img");
-        Elements offeredBy = wl.select(".itemAvailOfferedBy");
+        Elements listName = wl.select(WISH_LIST_HEADLINE_SELECTOR);
+
+
+        Elements items = wl.select(ITEMS);
+        Elements prices = wl.select(PRICES);
+        Elements asins = wl.select(ASINS);
+        Elements pictures = wl.select(PICTURES);
+        Elements offeredBy = wl.select(OFFERED_BY);
 
         if (items.isEmpty()) {
             throw new IllegalArgumentException("invalid Amazon wish list URL");
@@ -63,31 +76,29 @@ public class DomParser {
             amzElement.setItemUrl("http://www.amazon." + getAmazonTld(amazonWishlistUrl) + items.get(index).attr("href"));
             amzElement.setPictureUrl(pictures.get(index).attr("src"));
 
-            String asinAndID = asins.get(index).attr("data-item-prime-info");
-            JsonElement asinAndId = new JsonParser().parse(asinAndID);
-            String asin = asinAndId.getAsJsonObject().get("asin").toString();
-            asin = asin.substring(1, asin.length() - 1);
+            String asin = getAsin(asins, index);
 
             if (isIsbn(asin)) {
-                amzElement.setIsbn(Integer.parseInt(asin));
+                amzElement.setIsbn(asin);
             } else {
                 amzElement.setAsin(asin);
             }
 
-            String id = asinAndId.getAsJsonObject().get("id").toString();
-
-            amzElement.setId(id.substring(1, id.length() - 1));
+            amzElement.setId(getId(asins, index));
             amzElement.setPrice(prices.get(index).text());
             amzElement.setOfferedBy(offeredBy.get(index).text());
 
             amazonElementList.add(amzElement);
         }
 
+        String paginationUri = wl.select(PAGINATION_SELECTOR).attr("href");
+
         if (!paginationUri.isEmpty()) {
+            String paginationUrl = "http://www.amazon." + getAmazonTld(amazonWishlistUrl) + paginationUri;
             getWishListByUrl(paginationUrl);
         }
 
-        return new Wishlist(amazonElementList, listName.get(0).text(), amazonWishlistUrl);
+        return new Wishlist(listName.get(0).text(), amazonWishlistUrl, amazonElementList);
     }
 
     private boolean isIsbn(String asin) {
@@ -97,5 +108,21 @@ public class DomParser {
     private String getAmazonTld(String url) {
         String tld = StringUtils.substringAfterLast(url, "amazon.");
         return StringUtils.substringBefore(tld, "/");
+    }
+
+    private String getAsin(Elements asins, int index) {
+        String asin = getAsinAndId(asins, index).get("asin").toString();
+        return asin.substring(1, asin.length() - 1);
+    }
+
+    private String getId(Elements asins, int index) {
+        String id = getAsinAndId(asins, index).get("id").toString();
+        return id.substring(1, id.length() - 1);
+    }
+
+    private JsonObject getAsinAndId(Elements asins, int index) {
+        String asinAndID = asins.get(index).attr("data-item-prime-info");
+        JsonElement asinAndId = new JsonParser().parse(asinAndID);
+        return asinAndId.getAsJsonObject();
     }
 }

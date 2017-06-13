@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -16,18 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class WishListFetcher {
 
-    @Value("${config.useragent}")
-    String userAgent;
-
-    @Value("${config.referrer}")
-    String referrer;
+    private static final String USER_AGENT = "Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6";
+    private static final String REFERRER = "http://www.google.com";
 
     public Document getFetchedAmazonWishList(String amazonWishListUrl) {
         validateAmazonWishListUrl(amazonWishListUrl);
         try {
+
+
             return Jsoup.connect(amazonWishListUrl)
-                    .userAgent(userAgent)
-                    .referrer(referrer)
+                    .userAgent(USER_AGENT)
+                    .referrer(REFERRER)
                     .get();
         } catch (IOException e) {
             log.warn("Error querying Amazon!", e);

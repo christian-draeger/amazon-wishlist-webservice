@@ -26,10 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class AmazonWishListController {
 
-    private static final String DEFAULT_URL = "https://www.amazon.de/gp/registry/wishlist/CGACJDFKWTIZ";
-    private static final String DEFAULT_TLD = "de";
-    private static final String DEFAULT_ID = "CGACJDFKWTIZ";
-
     @Inject
     private DomParser domParser;
 
@@ -55,6 +51,11 @@ public class AmazonWishListController {
             @ApiResponse(code = 500, message = "Internal Server Error")})
     public Wishlist amazonWishList(@RequestParam String tld, @RequestParam String id) {
         return domParser.getWishListByID(tld, id);
+    }
+
+    @GetMapping(value = "/error", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String error() {
+        return "an error occurred";
     }
 
     @ExceptionHandler
