@@ -34,7 +34,7 @@ public class WishListFetcher {
     }
 
     private void validateAmazonWishListUrl(String amazonWishListUrl) {
-        if (!(amazonWishListUrl.contains("www.amazon.") && amazonWishListUrl.contains("registry/wishlist/")))
+        if (!(amazonWishListUrl.contains("www.amazon.") && amazonWishListUrl.contains("/wishlist/")))
             throw new IllegalArgumentException("invalid Amazon wish list URL");
     }
 
