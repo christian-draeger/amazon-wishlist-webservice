@@ -1,4 +1,5 @@
 [![N|Solid](https://travis-ci.org/christian-draeger/amazon-wishlist-webservice.svg?branch=master)](https://travis-ci.org/christian-draeger/amazon-wishlist-webservice)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fchristian-draeger%2Famazon-wishlist-webservice.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fchristian-draeger%2Famazon-wishlist-webservice?ref=badge_shield)
 
 # Amazon wish list api
 This is a little API to retrieve Amazon Wish List data. There is no official API, as Amazon shut it down a couple years ago.
@@ -109,3 +110,7 @@ Pages
 https://christian-draeger.github.io/amazon-wishlist-webservice/
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fchristian-draeger%2Famazon-wishlist-webservice.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fchristian-draeger%2Famazon-wishlist-webservice?ref=badge_large)
